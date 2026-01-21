@@ -1,0 +1,8 @@
+# Secrets
+credentials/
+token.pkl
+processed_ids.json
+
+# Python
+__pycache__/
+*.pyc
