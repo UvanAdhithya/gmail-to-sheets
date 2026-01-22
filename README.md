@@ -145,8 +145,28 @@ Update config.py with your Google Sheet ID.
 ```bash
 python src/main.py
 ```
+
+## ⚠️ Security Measures
+
+- OAuth credentials are never committed
+- Tokens are stored locally only
+- .gitignore prevents accidental leaks
+- Compromised credentials are rotated immediately
 ### What happens:
 - Browser opens for OAuth (first run only)
 - Unread emails are processed
 - Rows are appended to Google Sheets
 - Emails are marked as read
+
+## 🧠 Challenges Faced & Solutions
+**Challenge: Large email bodies**
+Some emails exceeded Google Sheets’ 50,000-character cell limit.
+
+**Solution:**
+Email content is truncated before insertion to ensure reliable execution.
+
+## 🚧 Limitations
+- HTML emails may lose formatting
+- Large attachments are ignored
+- Gmail API rate limits apply
+- Script must be run manually or scheduled
