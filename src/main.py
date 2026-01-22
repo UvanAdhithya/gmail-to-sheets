@@ -1,3 +1,10 @@
+import sys
+import os
+
+MAX_CELL_LENGTH = 10000
+ 
+# Tells python to look in the projec dir
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import json, os
 from config import SCOPES, SPREADSHEET_ID, SHEET_RANGE, STATE_FILE
 from gmail_service import get_gmail_service
@@ -28,11 +35,13 @@ def main():
 
         email = parse_email(gmail, msg["id"])
 
+        content = email["content"][:MAX_CELL_LENGTH]
+
         append_row(
             sheets,
             SPREADSHEET_ID,
             SHEET_RANGE,
-            [email["from"], email["subject"], email["date"], email["content"]]
+            [email["from"], email["subject"], email["date"], content] #Large emails are safely truncated
         )
 
         gmail.users().messages().modify(
